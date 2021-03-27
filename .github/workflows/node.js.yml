@@ -10,34 +10,15 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  test_pull_request:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    # Steps are the sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout repository
       - uses: actions/checkout@v2
-
-      - name: Set up Node.js${{matrix.node-version}}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
-         node-version: ${{matrix.node-version}}
-
-      - name: Install dependencies
-        run: npm install
-      
-      - name: Run the tests
-        run: npm test
-      
-    - name: Linter
-        run: npm run lint
-        
-      - name: Build
-        run: npm run build
+          node-version: 12
+      - run: npm install
+      - run: npm test
+      - run: npm run build
+      - name: Run ESLint
+        run: npx eslint src/ --ext .js,.jsx,.ts,.tsx
