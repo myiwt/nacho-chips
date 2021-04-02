@@ -1,7 +1,10 @@
-# Hey, that's nacho chip! 😠
+# Hey, that's nacho chips! 😠
 
-# Getting Started with Create React App
+[![Node.js CI](https://github.com/myiwt/nacho-chips/actions/workflows/node.js.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/node.js.yml)
 
+This web application is a resource for Test-Driven-Development information.
+
+## Create-React-App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
