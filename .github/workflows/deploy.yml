@@ -1,0 +1,18 @@
+name: Heroku CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: "cc6587ec-4ff1-4f09-8d84-17b64bf5bb64" # rip permissions in repo | should use ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "cise-assignment-2" #Must be unique in Heroku
+          heroku_email: "ytk0657@autuni.ac.nz"
