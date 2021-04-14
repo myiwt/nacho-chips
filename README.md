@@ -1,6 +1,7 @@
 # Hey, that's nacho chips! 😠
 
 [![Node.js CI](https://github.com/myiwt/nacho-chips/actions/workflows/node.js.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/node.js.yml)
+[![Heroku CD](https://github.com/myiwt/nacho-chips/actions/workflows/deploy.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/deploy.yml)
 
 This web application is a resource for Test-Driven-Development information.
 
