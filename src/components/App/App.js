@@ -5,9 +5,11 @@ import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
 import Result from '../Result/Result';
 import useToken from './useToken';
+import connectDB from '../../config/db';
 
 function App() {
   const { token, setToken } = useToken();
+  connectDB();
 
   if (!token) {
     return <Login setToken={setToken} />
