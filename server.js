@@ -1,14 +1,32 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
+const connectDB = require('./config/db');
 
 const app = express();
+const port = process.env.PORT || 8080;
 
-app.use(cors());
+// cors config - allow same origin
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
 
-app.use('/login', (req, res) => {
+// init cors
+app.use(cors(corsOptions));
+
+/* app.use('/login', (req, res) => {
   res.send({
     token: 'test123',
   });
-});
+}); */
 
-app.listen(8080, () => console.log('API is running on http://localhost:8080/login'));
+// Connect to Mongo Atlas
+connectDB();
+if (process.env.NODE_ENV === 'production') {
+  // serve front-end client from build folder
+  app.use(express.static('client/build'));
+} else {
+  app.get('/', (req, res) => res.send(`API running on port ${port}`));
+}
+
+app.listen(port, () => console.log(`Server running on port ${port}`));

@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test_pull_request:
+  CI:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,6 +19,5 @@ jobs:
           node-version: 12
       - run: npm install
       - run: npm test
-      - run: npm run build
       - name: Run ESLint
-        run: npx eslint src/ --ext .js,.jsx,.ts,.tsx
+        run: npx eslint server.js

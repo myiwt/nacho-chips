@@ -1,61 +1,46 @@
 {
   "name": "nacho-chips",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
-  },
+  "version": "1.0.0",
+  "description": "[![Node.js CI](https://github.com/myiwt/nacho-chips/actions/workflows/node.js.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/node.js.yml)\r [![Heroku CD](https://github.com/myiwt/nacho-chips/actions/workflows/deploy.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/deploy.yml)",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint src",
+    "test": "echo \"We are now testing!\" && jest",
+    "start": "node server.js",
+    "app": "nodemon server.js",
+    "lint": "eslint server.js",
     "prepare": "husky install",
-    "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,css,html}\""
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "heroku-postbuild": "npm run install-client && npm run build-client"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "eslint": "^7.23.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.23.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^6.0.0",
-    "lint-staged": "^10.5.4",
-    "prettier": "^2.2.1"
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myiwt/nacho-chips.git"
   },
-  "author": "",
+  "author": "BMW",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/myiwt/nacho-chips/issues"
+  },
+  "homepage": "https://github.com/myiwt/nacho-chips#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.0",
+    "nodemon": "^2.0.7"
   }
 }
