@@ -4,20 +4,20 @@
   "description": "[![Node.js CI](https://github.com/myiwt/nacho-chips/actions/workflows/node.js.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/node.js.yml)\r [![Heroku CD](https://github.com/myiwt/nacho-chips/actions/workflows/deploy.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/deploy.yml)",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"We are now testing!\" && jest",
-    "start": "node server.js",
-    "app": "nodemon server.js",
-    "lint": "eslint server.js",
-    "prepare": "husky install",
-    "install-client": "cd client && npm install",
-    "build-client": "cd client && npm run build",
-    "heroku-postbuild": "npm run install-client && npm run build-client"
+    "test": "echo \"Error: Link to React Tests\" && exit 1",
+    "prepare-backend": "cd backend && npm install",
+    "prepare-react": "cd client && npm install",
+    "build-react": "cd client && npm run build",
+    "test-react": "cd client && npm test",
+    "start": "node backend/server.js",
+    "app": "nodemon backend/server.js",
+    "heroku-postbuild": "npm run prepare-react && npm run build-react"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myiwt/nacho-chips.git"
   },
-  "author": "BMW",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/myiwt/nacho-chips/issues"
@@ -25,7 +25,6 @@
   "homepage": "https://github.com/myiwt/nacho-chips#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
     "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -33,14 +32,6 @@
     "mongoose": "^5.12.5"
   },
   "devDependencies": {
-    "eslint": "^7.24.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.23.2",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^6.0.0",
-    "jest": "^26.6.0",
     "nodemon": "^2.0.7"
   }
 }
