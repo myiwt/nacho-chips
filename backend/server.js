@@ -2,10 +2,22 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('../config/db');
 
+// routes go here
+//
+//
+//
+//
+
 const app = express();
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
+
+// use routes here
+//
+//
+//
+//
 
 // cors config - allow same origin
 const corsOptions = {
@@ -26,11 +38,7 @@ if (process.env.NODE_ENV === 'production') {
   });
   
 } else {
-  //app.get('/', (req, res) => res.send(`API running on port ${port}`));
-  app.use(express.static(__dirname+'/../client/build'));
-  app.get('*', (req, res) =>{
-    res.sendFile(__dirname+'/../client/build/index.html')
-  });
+  app.get('/', (req, res) => res.send(`API running on port ${port}`));
 }
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
