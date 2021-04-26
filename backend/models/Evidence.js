@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { claimTypes } = require('../config/claimTypes');
-const { claimStrength } = require('../config/claimStrength');
-const { softwareDevPractices } = require('../config/softwareDevPractices');
+const { claimTypes } = require('../../config/claimTypes');
+const { claimStrength } = require('../../config/claimStrength');
+const { softwareDevPractices } = require('../../config/softwareDevPractices');
 
 const EvidenceSchema = new mongoose.Schema({
   author: {
