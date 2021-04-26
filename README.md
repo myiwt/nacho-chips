@@ -5,6 +5,34 @@
 
 This web application is a resource for Test-Driven-Development information.
 
+### How to get the project started on the develop branch
+
+If it is the first time running the project, run the commands in the root directory:
+- npm run prepare-backend
+- npm run prepare-react
+
+If it is the first time running the project, run the commands in the root directory:
+- npm run prepare-backend
+- npm run prepare-react
+
+If it is the first time running the project, run the commands (in the client directory):
+- cd client
+- npm build
+
+Then, in one terminal run this command in the root directory of the project:
+- npm start
+
+
+In another terminal, run these commands (in the client directory):
+cd client
+npm start
+
+Open the app in the browser:
+http://localhost:3000/
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
