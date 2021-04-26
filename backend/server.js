@@ -3,7 +3,7 @@ const cors = require('cors');
 const connectDB = require('../config/db');
 
 // routes go here
-//
+const repo = require('./routes/api/Repo');
 //
 //
 //
@@ -14,7 +14,7 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 
 // use routes here
-//
+app.use('/api/repo', repo);
 //
 //
 //
