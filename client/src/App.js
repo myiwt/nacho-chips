@@ -3,13 +3,15 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
 import Home from './components/Home';
+import ViewAll from './components/Articles/ViewAll';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="App">
-          <Route path='/' component={Home} />
+          <Route exact path='/' component={Home} /> {/* exact path required for home */}
+          <Route path='/view-all' component={ViewAll} />
         </div>
       </Router>
     );

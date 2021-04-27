@@ -17,7 +17,7 @@ html {
 
 /*  Home page  */
 
-.Home {
+.Home, .ViewAll {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   height: 100%;
@@ -34,6 +34,8 @@ html {
   margin-left: 20px;
   margin-right: 20px;
   min-width: 300px;
+  padding-bottom: 115px;
+  padding-top: 100px;
 }
 
 .Home > .wrapper > .title {
@@ -79,10 +81,28 @@ a.nav-btn:active {
   background: #EDAFB8;
 }
 
+/*  Articles  */
+
+.article > .details > span > a {
+  text-decoration: none;
+  color: #95B8D1;
+}
+
+.article > .details > span {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.article {
+  background: #2b2b2b;
+  border: solid 1px;
+  padding: 10px;
+}
+
 /*  Footer  */
 
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   width: 100%;
   text-align: center;
