@@ -11,14 +11,6 @@ const repo = require('./routes/api/Repo');
 const app = express();
 const port = process.env.PORT || 8080;
 
-app.use(express.json());
-
-// use routes here
-app.use('/api/repo', repo);
-//
-//
-//
-
 // cors config - allow same origin
 const corsOptions = {
   origin: true,
@@ -27,6 +19,15 @@ const corsOptions = {
 
 // init cors
 app.use(cors(corsOptions));
+
+// init body parser
+app.use(express.json());
+
+// use routes here
+app.use('/api/repo', repo);
+//
+//
+//
 
 // Connect to Mongo Atlas
 connectDB();
