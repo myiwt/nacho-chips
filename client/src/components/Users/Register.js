@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import classnames from "classnames";
+import PropTypes from 'prop-types';
 
 import logo from '../../logo.svg';
 import '../../App.css';
@@ -22,7 +23,7 @@ class Register extends Component {
 }
 
 componentDidMount() {
-  axios
+/*   axios
   .get('http://localhost:8080/api/register')
   .then(res => {
 
@@ -32,6 +33,10 @@ componentDidMount() {
   .catch(err =>{
     console.log('Error with login');
   })
+   */
+  if (this.props.auth.isAuthenticated) {
+    <Redirect to="http://localhost:8080/view-all"/>
+  }
 };
 
 componentWillReceiveProps(nextProps) {
@@ -88,8 +93,14 @@ render() {
                   error={errors.name}
                   id="name"
                   type="text"
+                  className={classnames("", {
+                    invalid: errors.name
+                  })}
                 />
                 <label htmlFor="name">Name</label>
+                <span className="red-text">
+                  {errors.name}
+                </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -98,8 +109,14 @@ render() {
                   error={errors.email}
                   id="email"
                   type="email"
+                  className={classnames("", {
+                    invalid: errors.email
+                  })}
                 />
                 <label htmlFor="email">Email</label>
+                <span className="red-text">
+                  {errors.email}
+                </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -108,8 +125,14 @@ render() {
                   error={errors.password}
                   id="password"
                   type="password"
+                  className={classnames("", {
+                    invalid: errors.password
+                  })}
                 />
                 <label htmlFor="password">Password</label>
+                <span className="red-text">
+                  {errors.password}
+                </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -118,8 +141,14 @@ render() {
                   error={errors.passwordValidation}
                   id="passwordValidation"
                   type="password"
+                  className={classnames("", {
+                    invalid: errors.passwordValidation
+                  })}
                 />
                 <label htmlFor="passwordValidation">Confirm Password</label>
+                <span className="red-text">
+                  {errors.passwordValidation}
+                </span>
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
@@ -162,4 +191,3 @@ export default connect(
   mapStateToProps,
   {registerUser}
 ) (withRouter(Register));
-

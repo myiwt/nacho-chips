@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {logoutUser} from "../../actions/authActions";
 
 import ArticleListItem from './ArticleListItem';
 import logo from '../../logo.svg';
@@ -31,8 +34,13 @@ class ViewAll extends Component {
     })
   };
 
-  render() {
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
 
+  render() {
+    const {user} = this.props.auth;
     const articles = this.state.articles;
     let articleList;
 
@@ -52,6 +60,19 @@ class ViewAll extends Component {
                 Home
             </Link>
             </ul>
+            
+            <ul className="right-nav">
+            <button
+              style={{
+                width: "150px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }}
+              onClick={this.onLogoutClick}>
+              Logout
+            </button>
+            </ul>
         </div>
         <div className="wrapper">
           
@@ -70,4 +91,16 @@ class ViewAll extends Component {
   }
 }
 
-export default ViewAll;
+ViewAll.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {logoutUser}
+) (ViewAll);

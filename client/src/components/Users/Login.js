@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
@@ -20,7 +20,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    axios
+    /* axios
     .get('http://localhost:8080/api/login')
     .then(res => {
 
@@ -33,13 +33,20 @@ class Login extends Component {
     })
     .catch(err =>{
       console.log('Error with login');
-    })
+    }) */
+
+    if (this.props.auth.isAuthenticated) {
+        this.props.history.push('/view-all');
+      }
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard"); // push user to dashboard when they login
-    }if (nextProps.errors) {
+        // when user logs in they get to see the view-all page
+        this.props.history.push('/view-all');
+    }
+    
+    if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
@@ -58,11 +65,10 @@ class Login extends Component {
       password: this.state.password
   };
 
-  console.log(userData);
-
-  this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+ // since we handle the redirect within our component, we don't 
+ // need to pass in this.props.history as a parameter
+  this.props.loginUser(userData); 
 };
-
 
   render() {
       const {errors} = this.state;
@@ -94,6 +100,10 @@ class Login extends Component {
                   })}
                 />
                 <label htmlFor="email">Email</label>
+                <span className="red-text">
+                    {errors.email}
+                    {errors.emailnotfound}
+                </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -102,8 +112,15 @@ class Login extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
+                  className ={classnames("", {
+                      invalid: errors.password || errors.passwordincorrect
+                  })}
                 />
                 <label htmlFor="password">Password</label>
+                <span className="red-text">
+                    {errors.password}
+                    {errors.passwordincorrect}
+                </span>
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
@@ -132,4 +149,18 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    {loginUser}
+) (Login);
