@@ -5,6 +5,7 @@ import axios from 'axios';
 import ArticleListItem from './ArticleListItem';
 import logo from '../../logo.svg';
 import '../../App.css';
+import SearchBar from '../SearchBar';
 
 class ViewAll extends Component {
   constructor(props) {
@@ -44,6 +45,22 @@ class ViewAll extends Component {
       );
     }
 
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get('s');
+    
+    const filterArticles = (articleList, query) => {
+      if (!query) {
+        return articleList;
+      }
+      
+      return articleList.filter((article) => {
+        const articleName = article.props.article.title;
+        return articleName.includes(query);
+      })
+    }
+    
+    const filteredArticles = filterArticles(articleList, query);
+
     return (
       <div className="ViewAll">
         <div className="navigation">
@@ -51,12 +68,17 @@ class ViewAll extends Component {
             <Link to="/" className="nav-btn">
                 Home
             </Link>
+            <Link to="/view-all" className="nav-btn">
+                View All Articles
+            </Link>
             </ul>
         </div>
         <div className="wrapper">
-          
+          <div>
+            <SearchBar />
+          </div>
           <div className="article-list">
-              {articleList}
+              {filteredArticles}
           </div>
 
         </div>
