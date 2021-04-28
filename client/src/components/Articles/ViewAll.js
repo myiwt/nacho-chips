@@ -54,7 +54,7 @@ class ViewAll extends Component {
       }
       
       return articleList.filter((article) => {
-        const articleName = article.props.article.title;
+        const articleName = article.props.article.claim_strength;
         return articleName.includes(query);
       })
     }

@@ -22,7 +22,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
             //onInput={(e) => setSearchQuery(e.target.value)}
             type="text"
             id="header-search"
-            placeholder="Search for evidence"
+            placeholder="Search for evidence (strong, agree, against, etc.)"
             name="s"
             size="50"
         />
