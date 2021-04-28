@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://ciseAdmin:Gy8ttrMIFj4658Bj@seedsbmw.jfk0j.mongodb.net/cise-seeds?authSource=admin&retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://ciseAdmin:Gy8ttrMIFj4658Bj@seedsbmw.jfk0j.mongodb.net/cise-seeds?authSource=admin&retryWrites=true&w=majority",
+  "secretOrKey": "secret"
 }

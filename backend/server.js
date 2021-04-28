@@ -1,9 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('../config/db');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
 // routes go here
 const repo = require('./routes/api/Repo');
+const users = require("./routes/api/Users");
 //
 //
 //
@@ -23,9 +26,20 @@ app.use(cors(corsOptions));
 // init body parser
 app.use(express.json());
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Bodyparser middleware
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+app.use(bodyParser.json());
+
 // use routes here
 app.use('/api/repo', repo);
-//
+app.use('/api/users', users);
 //
 //
 
