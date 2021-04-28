@@ -108,3 +108,10 @@ a.nav-btn:active {
   text-align: center;
   margin-bottom: 25px;
 }
+
+
+/*    Login     */
+.Login > .wrapper > .title {
+  font-size: 9vh;
+  color: #95B8D1;
+}

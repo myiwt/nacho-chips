@@ -19,6 +19,16 @@ class Home extends Component {
                 View All Articles
             </Link>
             </ul>
+            <ul className="right-nav">
+            <Link to="/login" className="nav-btn">
+                Login
+            </Link>
+            </ul>
+            <ul className="right-nav">
+            <Link to="/register" className="nav-btn">
+                Register
+            </Link>
+            </ul>
         </div>
         <div className="wrapper">
           
