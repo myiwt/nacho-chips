@@ -115,3 +115,9 @@ a.nav-btn:active {
   font-size: 9vh;
   color: #95B8D1;
 }
+
+.Login > .wrapper > .subtitle {
+  font-size: 2.5vh;
+  text-align: center;
+}
+

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link, withRouter, Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from "classnames";
 import PropTypes from 'prop-types';
+import cogoToast from 'cogo-toast';
 
 import logo from '../../logo.svg';
 import '../../App.css';
@@ -20,24 +20,13 @@ class Register extends Component {
         passwordValidation: "",
         errors: {}
     };
+
+    this.registrationSuccess.bind(this);
 }
 
-componentDidMount() {
-/*   axios
-  .get('http://localhost:8080/api/register')
-  .then(res => {
-
-    if(res.data.success === 1)
-    { }
-  })
-  .catch(err =>{
-    console.log('Error with login');
-  })
-   */
-  if (this.props.auth.isAuthenticated) {
-    <Redirect to="http://localhost:8080/view-all"/>
-  }
-};
+registrationSuccess() {
+  cogoToast.success('This is a success message!');
+}
 
 componentWillReceiveProps(nextProps) {
   if (nextProps.errors) {
@@ -64,6 +53,7 @@ const newUser = {
   console.log(newUser);
 
   this.props.registerUser(newUser, this.props.history);
+  cogoToast.success('You have successfully registered!');
 };
 
 render() {
@@ -87,6 +77,7 @@ render() {
 
           <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
+              <label htmlFor="name">Name</label>
                 <input
                   onChange={this.onChange}
                   value={this.state.name}
@@ -97,12 +88,12 @@ render() {
                     invalid: errors.name
                   })}
                 />
-                <label htmlFor="name">Name</label>
                 <span className="red-text">
                   {errors.name}
                 </span>
               </div>
               <div className="input-field col s12">
+              <label htmlFor="email">Email</label>
                 <input
                   onChange={this.onChange}
                   value={this.state.email}
@@ -113,12 +104,12 @@ render() {
                     invalid: errors.email
                   })}
                 />
-                <label htmlFor="email">Email</label>
                 <span className="red-text">
                   {errors.email}
                 </span>
               </div>
               <div className="input-field col s12">
+              <label htmlFor="password">Password</label>
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
@@ -129,12 +120,12 @@ render() {
                     invalid: errors.password
                   })}
                 />
-                <label htmlFor="password">Password</label>
                 <span className="red-text">
                   {errors.password}
                 </span>
               </div>
               <div className="input-field col s12">
+              <label htmlFor="passwordValidation">Confirm Password</label>
                 <input
                   onChange={this.onChange}
                   value={this.state.passwordValidation}
@@ -145,7 +136,6 @@ render() {
                     invalid: errors.passwordValidation
                   })}
                 />
-                <label htmlFor="passwordValidation">Confirm Password</label>
                 <span className="red-text">
                   {errors.passwordValidation}
                 </span>
@@ -172,7 +162,7 @@ render() {
           </div>
         </div>
         </div>
-      );
+        );
   }
 }
 

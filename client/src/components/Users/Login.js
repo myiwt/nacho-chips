@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
@@ -20,7 +20,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    /* axios
+    axios
     .get('http://localhost:8080/api/login')
     .then(res => {
 
@@ -33,8 +33,8 @@ class Login extends Component {
     })
     .catch(err =>{
       console.log('Error with login');
-    }) */
-
+    })
+    
     if (this.props.auth.isAuthenticated) {
         this.props.history.push('/view-all');
       }
@@ -85,6 +85,10 @@ class Login extends Component {
           
           <div className="title">
                 Login
+          </div>
+
+          <div className="subtitle">
+                Please log in to access SEEDS
           </div>
 
           <form noValidate onSubmit={this.onSubmit}>
