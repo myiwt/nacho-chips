@@ -4,6 +4,7 @@ import axios from 'axios';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authActions";
+import cogoToast from "cogo-toast";
 
 import ArticleListItem from './ArticleListItem';
 import logo from '../../logo.svg';
@@ -37,6 +38,7 @@ class ViewAll extends Component {
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
+    cogoToast.success('You are now logged out', {"hideAfter":1});
   };
 
   render() {
@@ -63,13 +65,9 @@ class ViewAll extends Component {
             
             <ul className="right-nav">
             <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onLogoutClick}>
+              onClick={this.onLogoutClick}
+              className="nav-btn"
+              >
               Logout
             </button>
             </ul>

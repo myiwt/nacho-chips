@@ -17,7 +17,7 @@ html {
 
 /*  Home page  */
 
-.Home, .ViewAll {
+.Home, .ViewAll, .Login, .Register {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   height: 100%;
@@ -63,7 +63,7 @@ ul.right-nav {
   margin-right: 10px;
 }
 
-a.nav-btn {
+a.nav-btn, button.nav-btn {
   border: solid 2px #EDAFB8;
   color: #EDAFB8;
   padding: 10px;
@@ -76,7 +76,7 @@ a.nav-btn {
   font-weight: 400;
 }
 
-a.nav-btn:active {
+a.nav-btn:active, button.nav-btn:active {
   color: #333333;
   background: #EDAFB8;
 }
@@ -114,6 +114,8 @@ a.nav-btn:active {
 .Login > .wrapper > .title {
   font-size: 9vh;
   color: #95B8D1;
+  position: relative;
+  top: 0px;
 }
 
 .Login > .wrapper > .subtitle {
@@ -121,3 +123,58 @@ a.nav-btn:active {
   text-align: center;
 }
 
+.Login > .wrapper {
+
+  padding-top: 20px;
+}
+
+
+button.btn {
+  border: solid 2px #EDAFB8;
+  color: #EDAFB8;
+  background: #333333;
+  color: #EDAFB8;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 400;
+}
+
+input, button.btn {
+  flex: 50%;
+  border: solid 2px #EDAFB8;
+  width: 100%;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 30px;
+  margin-right: 5px;
+  margin-left: 5px;
+  text-decoration: none;
+  font-weight: 400;
+  display: inline-block;
+  box-sizing: border-box;
+  clear: both;
+}
+
+input {
+  background: #333333;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+input.invalid {
+  float:right;
+}
+
+label {
+  display: inline-block;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  }
+
+  button.nav-btn {
+    background: #333333;
+    color: #EDAFB8;
+  }

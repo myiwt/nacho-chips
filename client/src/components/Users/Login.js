@@ -1,170 +1,152 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {loginUser} from '../../actions/authActions';
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+import cogoToast from "cogo-toast";
 
-import logo from '../../logo.svg';
-import '../../App.css';
+import logo from "../../logo.svg";
+import "../../App.css";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        email: "",
-        password: "",
-        errors: {}
+      email: "",
+      password: "",
+      errors: {},
     };
   }
 
   componentDidMount() {
     axios
-    .get('http://localhost:8080/api/login')
-    .then(res => {
+      .get("http://localhost:8080/api/login")
+      .then((res) => {
+        if (res.data.success === 1) {
+          this.setState({
+            login: res.data.body,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log("Error with login");
+      });
 
-      if(res.data.success === 1)
-      {
-        this.setState({
-          login: res.data.body
-        })
-      }
-    })
-    .catch(err =>{
-      console.log('Error with login');
-    })
-    
     if (this.props.auth.isAuthenticated) {
-        this.props.history.push('/view-all');
-      }
-  };
+      cogoToast.success("You are already logged in", { hideAfter: 1 });
+      this.props.history.push("/view-all");
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-        // when user logs in they get to see the view-all page
-        this.props.history.push('/view-all');
+      // when user logs in they get to see the view-all page
+      this.props.history.push("/view-all");
+      cogoToast.success("You are now logged in", { hideAfter: 1 });
     }
-    
+
     if (nextProps.errors) {
       this.setState({
-        errors: nextProps.errors
+        errors: nextProps.errors,
       });
     }
   }
 
-  onChange = e => {
-      this.setState({ [e.target.id]: e.target.value });
+  onChange = (e) => {
+    this.setState({ [e.target.id]: e.target.value });
   };
 
-  onSubmit = e => {
-      e.preventDefault();
+  onSubmit = (e) => {
+    e.preventDefault();
 
-  const userData = {
+    const userData = {
       email: this.state.email,
-      password: this.state.password
-  };
+      password: this.state.password,
+    };
 
- // since we handle the redirect within our component, we don't 
- // need to pass in this.props.history as a parameter
-  this.props.loginUser(userData); 
-};
+    // since we handle the redirect within our component, we don't
+    // need to pass in this.props.history as a parameter
+    this.props.loginUser(userData);
+  };
 
   render() {
-      const {errors} = this.state;
+    const { errors } = this.state;
     return (
-        <div className="Login">
-          <div className="navigation">
-              <ul className="right-nav">
-              <Link to="/" className="nav-btn">
-                  Home
-              </Link>
-              </ul>
-          </div>
-          <div className="wrapper">
-          
-          <div className="title">
-                Login
-          </div>
+      <div className="Login">
+        <div className="navigation">
+          <ul className="right-nav">
+            <Link to="/" className="nav-btn">
+              Home
+            </Link>
+          </ul>
+        </div>
+        <div className="wrapper">
+          <div className="title">Login</div>
 
-          <div className="subtitle">
-                Please log in to access SEEDS
-          </div>
+          <div className="subtitle">Please log in to access SEEDS</div>
 
           <form noValidate onSubmit={this.onSubmit}>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
-                  className={classnames("", {
-                    invalid: errors.email || errors.emailnotfound
-                  })}
-                />
-                <label htmlFor="email">Email</label>
-                <span className="red-text">
-                    {errors.email}
-                    {errors.emailnotfound}
-                </span>
-              </div>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.password}
-                  error={errors.password}
-                  id="password"
-                  type="password"
-                  className ={classnames("", {
-                      invalid: errors.password || errors.passwordincorrect
-                  })}
-                />
-                <label htmlFor="password">Password</label>
-                <span className="red-text">
-                    {errors.password}
-                    {errors.passwordincorrect}
-                </span>
-              </div>
-              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                  }}
-                  type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                >
-                  Login
-                </button>
-              </div>
-            </form>
+            <div>
+              <label htmlFor="email">Email</label>
+              <input
+                onChange={this.onChange}
+                value={this.state.email}
+                error={errors.email}
+                id="email"
+                type="email"
+                className={classnames("", {
+                  invalid: errors.email || errors.emailnotfound,
+                })}
+              />
+              <span>{errors.email} {errors.emailnotfound}</span>
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
 
-        </div>
+              <input
+                onChange={this.onChange}
+                value={this.state.password}
+                error={errors.password}
+                id="password"
+                type="password"
+                className={classnames("", {
+                  invalid: errors.password || errors.passwordincorrect,
+                })}
+              />
+              <span>
+                {errors.password}
+                {errors.passwordincorrect}
+              </span>
+            </div>
+            <div>
+              <button type="submit" className="btn">
+                Login
+              </button>
+            </div>
+          </form>
+
           <div className="footer">
-              <div className="logo">
-                  <img src={logo} alt="" width="50px" />
-              </div>
+            <div className="logo">
+              <img src={logo} alt="" width="50px" />
+            </div>
           </div>
         </div>
-      );
+      </div>
+    );
   }
 }
 
 Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
 });
 
-export default connect(
-    mapStateToProps,
-    {loginUser}
-) (Login);
+export default connect(mapStateToProps, { loginUser })(Login);
