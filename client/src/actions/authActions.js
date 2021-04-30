@@ -1,6 +1,7 @@
 import axios from "axios";
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from "jwt-decode";
+import cogoToast from "cogo-toast";
 
 import {
   GET_ERRORS,
@@ -12,7 +13,11 @@ import {
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("http://localhost:8080/api/users/register", userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
+    .then(res => {
+      cogoToast.success('You have successfully registered!',{"hideAfter": 2});
+      history.push("/login");
+    }
+    ) // re-direct to login on successful register
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
