@@ -4,6 +4,7 @@ import './App.css';
 
 import Home from './components/Home';
 import ViewAll from './components/Articles/ViewAll';
+import Search from './components/Search/Search';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
         <div className="App">
           <Route exact path='/' component={Home} /> {/* exact path required for home */}
           <Route path='/view-all' component={ViewAll} />
+          <Route path='/search' component={Search} />
         </div>
       </Router>
     );

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import ArticleListItem from './ArticleListItem';
+import ArticleListItem from '../Articles/ArticleListItem';
 import logo from '../../logo.svg';
 import '../../App.css';
-import SearchBar from '../Search/SearchBar';
+import SearchBar from './SearchBar';
 
-class ViewAll extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,8 +16,9 @@ class ViewAll extends Component {
   }
 
   componentDidMount() {
+    
     axios
-    .get('http://localhost:8080/api/repo')
+    .get('http://localhost:8080/api/repo/query/')
     .then(res => {
 
       if(res.data.success === 1)
@@ -46,22 +47,25 @@ class ViewAll extends Component {
     }
 
     return (
-      <div className="ViewAll">
+      <div className="Search">
         <div className="navigation">
             <ul className="right-nav">
             <Link to="/" className="nav-btn">
                 Home
             </Link>
+            <Link to="/view-all" className="nav-btn">
+                View All Articles
+            </Link>
             </ul>
         </div>
         <div className="wrapper">
           <div>
-              <SearchBar />
+            <SearchBar />
+            <br></br>
           </div>
           <div className="article-list">
               {articleList}
           </div>
-
         </div>
         <div className="footer">
             <div className="logo">
@@ -73,4 +77,4 @@ class ViewAll extends Component {
   }
 }
 
-export default ViewAll;
+export default Search;
