@@ -44,4 +44,19 @@ router.post('/create', (req, res) => {
       .catch(err => res.status(400).json({ success: 0, msg: 'Unable to add this Article' }));
 });
 
+router.get('/claim_strength/:search', (req, res) => {
+    const query = { "claim_strength" : { $regex: req.params.search, $options: 'i'} };
+
+    Evidence.find(query)
+        .then(function(articles) {
+            if (articles == null || articles.length == 0)
+            {
+                throw new Error("No Articles found");
+            }
+            const result = { success: 1, result: articles };
+            res.json(result)
+        })
+        .catch(err => res.status(404).json({ success: 0, msg: err.message }));
+})
+
 module.exports = router;
