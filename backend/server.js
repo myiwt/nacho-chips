@@ -1,5 +1,16 @@
+// cors config - allow same origin
+const corsOptions = {
+  origin: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  allowedHeaders: ['Content-Type','Authorization']
+};
+
+// init cors
+app.use(cors(corsOptions));
+
 const express = require('express');
-const cors = require('cors');
+
 const connectDB = require('../config/db');
 
 // routes go here
@@ -11,16 +22,7 @@ const repo = require('./routes/api/Repo');
 const app = express();
 const port = process.env.PORT || 8080;
 
-// cors config - allow same origin
-const corsOptions = {
-  origin: true,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  allowedHeaders: ['Content-Type','Authorization']
-};
 
-// init cors
-app.use(cors(corsOptions));
 
 // init body parser
 app.use(express.json());
