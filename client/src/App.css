@@ -99,6 +99,18 @@ a.nav-btn:active {
   padding: 10px;
 }
 
+/* Search bar */
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 /*  Footer  */
 
 .footer {
@@ -107,4 +119,53 @@ a.nav-btn:active {
   width: 100%;
   text-align: center;
   margin-bottom: 25px;
+}
+
+.table-header-seeds {
+  background: #333333;
+  color: #ffffff;
+}
+
+.table-cell-seeds {
+  /*background: #333333;*/
+  color: #ffffff;
+}
+
+.MuiDataGrid-root {
+  border-radius: 0 !important;
+}
+
+.MuiTablePagination-root {
+  color: #ffffff !important;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.formControl {
+  min-width: 120px;
+}
+
+option {
+  background-color: #2b2b2b !important;
+}
+
+.MuiInputLabel-outlined, .MuiSelect-outlined.MuiSelect-outlined {
+  color: #ffffff !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff !important;
+  color: #ffffff;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff !important;
 }

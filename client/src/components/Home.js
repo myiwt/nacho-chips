@@ -15,8 +15,8 @@ class Home extends Component {
       <div className="Home">
         <div className="navigation">
             <ul className="right-nav">
-            <Link to="/view-all" className="nav-btn">
-                View All Articles
+            <Link to="/index" className="nav-btn">
+                Index
             </Link>
             </ul>
         </div>
