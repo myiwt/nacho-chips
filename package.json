@@ -11,7 +11,7 @@
     "test-react": "cd client && npm test",
     "start": "node backend/server.js",
     "app": "nodemon backend/server.js",
-    "heroku-postbuild": "npm run prepare-react && npm run build-react"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run prepare-react && npm run build-react"
   },
   "repository": {
     "type": "git",
