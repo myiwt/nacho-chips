@@ -1,3 +1,5 @@
+const express = require('express');
+
 // cors config - allow same origin
 const corsOptions = {
   origin: true,
@@ -8,8 +10,6 @@ const corsOptions = {
 
 // init cors
 app.use(cors(corsOptions));
-
-const express = require('express');
 
 const connectDB = require('../config/db');
 
