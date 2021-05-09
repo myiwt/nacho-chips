@@ -14,7 +14,9 @@ const port = process.env.PORT || 8080;
 // cors config - allow same origin
 const corsOptions = {
   origin: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
+  allowedHeaders: ['Content-Type','Authorization']
 };
 
 // init cors
