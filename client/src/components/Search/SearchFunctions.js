@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchFunctions(props) {
   const classes = useStyles();
-  const [claim_strength, setStrength ] = React.useState('');
+  const [searchColumn, setSearchCriteria ] = React.useState('');
 
   const handleChange = (event) => {
-    setStrength(event.target.value);
+    setSearchCriteria(event.target.value);
     props.searchBtnClick(event);
   };
 
@@ -26,11 +26,11 @@ function SearchFunctions(props) {
         <InputLabel htmlFor="outlined-age-native-simple">Claim Strength</InputLabel>
         <Select
         native
-        value={claim_strength}
+        value={searchColumn}
         onChange={handleChange}
         label="Claim Strength"
         inputProps={{
-            claim_strength: 'claim_strength',
+            searchColumn: 'claim_strength',
             id: 'outlined-age-native-simple',
         }}
         >
@@ -40,6 +40,25 @@ function SearchFunctions(props) {
             <option value={'stronglyAgree'}>Strongly Agree</option>
             <option value={'mostlyAgree'}>Mostly Agree</option>
             <option value={'mixed'}>Mixed</option>
+        </Select>
+        </FormControl>
+
+        <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Claim</InputLabel>
+        <Select
+        native
+        value={searchColumn}
+        onChange={handleChange}
+        label="Claim"
+        inputProps={{
+            searchColumn: 'claim',
+            id: 'outlined-age-native-simple',
+        }}
+        >
+            <option aria-label="None" value="" />
+            <option value={'productQuality'}>Improves product quality</option>
+            <option value={'codeQuality'}>Improves code quality</option>
+            <option value={'teamConfidence'}>Improves team confidence</option>
         </Select>
         </FormControl>
     </div>

@@ -16,12 +16,11 @@ class ViewAllTable extends Component {
     };
   }
   
-  claimStrengthBtnClick = (ev) => {
-    //console.log(ev.target.value);
+  searchBtnClick = (ev) => {
     let url = {};
     if(ev.target.value !== '')
     {
-      url = 'http://localhost:8080/api/repo/claim_strength/'+ev.target.value;
+      url = 'http://localhost:8080/api/repo/'+ev.target.getAttribute("searchColumn")+"/"+ev.target.value;
     } else
     {
       url = 'http://localhost:8080/api/repo';
@@ -75,7 +74,7 @@ class ViewAllTable extends Component {
       <div className="ViewAll">
         <Navigation links={navLinks}/>
         <div className="wrapper">
-          <SearchFunctions searchBtnClick={this.claimStrengthBtnClick} />
+          <SearchFunctions searchBtnClick={this.searchBtnClick} />
           <DataTable articles={articles} />
         </div>
         <Footer />
