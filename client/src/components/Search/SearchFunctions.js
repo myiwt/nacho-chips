@@ -13,24 +13,30 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchFunctions(props) {
   const classes = useStyles();
-  const [claim_strength, setStrength ] = React.useState('');
-
-  const handleChange = (event) => {
-    setStrength(event.target.value);
+  const [claimStrengthColumn, setClaimStrength ] = React.useState('');
+  const [claimColumn, setClaim ] = React.useState('');
+ 
+  const handleClaimStrengthChange = (event) => {
+    setClaimStrength(event.target.value);
     props.searchBtnClick(event);
   };
-
+ 
+  const handleClaimChange = (event) => {
+    setClaim(event.target.value);
+    props.searchBtnClick(event);
+  };
+ 
   return (
     <div>
         <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Claim Strength</InputLabel>
         <Select
         native
-        value={claim_strength}
-        onChange={handleChange}
+        value={claimStrengthColumn}
+        onChange={handleClaimStrengthChange}
         label="Claim Strength"
         inputProps={{
-            claim_strength: 'claim_strength',
+            searchcolumn: 'claim_strength',
             id: 'outlined-age-native-simple',
         }}
         >
@@ -42,8 +48,27 @@ function SearchFunctions(props) {
             <option value={'mixed'}>Mixed</option>
         </Select>
         </FormControl>
+ 
+        <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Claim</InputLabel>
+        <Select
+        native
+        value={claimColumn}
+        onChange={handleClaimChange}
+        label="Claim"
+        inputProps={{
+            searchcolumn: 'claim',
+            id: 'outlined-age-native-simple',
+        }}
+        >
+            <option aria-label="None" value="" />
+            <option value={'productQuality'}>Improves product quality</option>
+            <option value={'codeQuality'}>Improves code quality</option>
+            <option value={'teamConfidence'}>Improves team confidence</option>
+        </Select>
+        </FormControl>
     </div>
   );
 }
-
+ 
 export default SearchFunctions;

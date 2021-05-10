@@ -4,6 +4,66 @@ const router = express.Router();
 // db models
 const Evidence = require('../../models/Evidence');
 
+// @route POST api/repo
+// @description search for articles using multiple queries
+router.post('/', (req, res) => {
+    console.log(req.body);
+
+    const body = req.body;
+    if (body.method != null && body.method != "") {
+        console.log(body.method);
+        //res.status(200).json({success: 1});
+
+        /*
+        Example query - all parameters are optional except method
+        {
+        "method": "query",
+        "yearStart": "2010",
+        "yearEnd": "2020",
+        "software_dev_practice": "TDD",
+        "claim": "codeQuality",
+        "claim_strength": "mostlyAgree",
+        "author": "",
+        "title": "",
+        "doi": ""
+        }
+        */
+        if (body.method == "query") {
+            var query = {}; 
+            if (body.claim != null) {
+                query.claim = { $regex: body.claim, $options: 'i'};
+            }
+            if (body.claim_strength != null) {
+                query.claim_strength = { $regex: body.claim_strength, $options: 'i'};
+            }
+            if (body.software_dev_practice != null) {
+                query.software_dev_practice = { $regex: body.software_dev_practice, $options: 'i'};
+            }
+            
+            // TODO: yearStart & yearEnd
+
+            console.log(query);
+
+            Evidence.find(query)
+            .then(function(articles) {
+                if (articles == null || articles.length == 0)
+                {
+                    throw new Error("No Articles found");
+                }
+                const result = { success: 1, length: articles.length, result: articles };
+                res.json(result);
+                return;
+            })
+            .catch(err => res.status(404).json({ success: 0, msg: err.message }));
+        }
+    } else {
+        res.status(404).json({success: 0, msg: "no method set"});
+    }
+
+    
+});
+
+
 // @route GET api/repo
 // @description get all articles
 router.get('/', (req, res) => {
@@ -46,6 +106,21 @@ router.post('/create', (req, res) => {
 
 router.get('/claim_strength/:search', (req, res) => {
     const query = { "claim_strength" : { $regex: req.params.search, $options: 'i'} };
+
+    Evidence.find(query)
+        .then(function(articles) {
+            if (articles == null || articles.length == 0)
+            {
+                throw new Error("No Articles found");
+            }
+            const result = { success: 1, result: articles };
+            res.json(result)
+        })
+        .catch(err => res.status(404).json({ success: 0, msg: err.message }));
+});
+
+router.get('/claim/:search', (req, res) => {
+    const query = { "claim" : { $regex: req.params.search, $options: 'i'} };
 
     Evidence.find(query)
         .then(function(articles) {
