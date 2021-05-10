@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../App.css';
 
 import logo from '../logo.svg';
+import Navigation from './Navigation';
 
 class Home extends Component {
   constructor(props) {
@@ -11,15 +11,13 @@ class Home extends Component {
   }
 
   render() {
+    const navLinks = {
+      title: "Index",
+      href: "/index"
+    }
     return (
       <div className="Home">
-        <div className="navigation">
-            <ul className="right-nav">
-            <Link to="/index" className="nav-btn">
-                Index
-            </Link>
-            </ul>
-        </div>
+        < Navigation links={navLinks}/>
         <div className="wrapper">
           
           <div className="title">

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import logo from '../../logo.svg';
 import '../../App.css';
 import DataTable from './DataTable';
 import SearchFunctions from '../Search/SearchFunctions';
+import Navigation from '../Navigation';
+import Footer from '../Footer';
 
 class ViewAllTable extends Component {
   constructor(props) {
@@ -67,25 +67,18 @@ class ViewAllTable extends Component {
   render() {
     const articles = this.state.articles;
     //const search = this.state.search;
-
+    const navLinks = {
+      title: "Home",
+      href: "/"
+    };
     return (
       <div className="ViewAll">
-        <div className="navigation">
-            <ul className="right-nav">
-            <Link to="/" className="nav-btn">
-                Home
-            </Link>
-            </ul>
-        </div>
+        <Navigation links={navLinks}/>
         <div className="wrapper">
           <SearchFunctions searchBtnClick={this.claimStrengthBtnClick} />
           <DataTable articles={articles} />
         </div>
-        <div className="footer noselect">
-            <div className="logo">
-                <img src={logo} alt="" width="50px" />
-            </div>
-        </div>
+        <Footer />
       </div>
     );
   }
