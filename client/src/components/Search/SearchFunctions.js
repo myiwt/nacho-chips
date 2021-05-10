@@ -13,24 +13,30 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchFunctions(props) {
   const classes = useStyles();
-  const [searchColumn, setSearchCriteria ] = React.useState('');
-
-  const handleChange = (event) => {
-    setSearchCriteria(event.target.value);
+  const [claimStrengthColumn, setClaimStrength ] = React.useState('');
+  const [claimColumn, setClaim ] = React.useState('');
+ 
+  const handleClaimStrengthChange = (event) => {
+    setClaimStrength(event.target.value);
     props.searchBtnClick(event);
   };
-
+ 
+  const handleClaimChange = (event) => {
+    setClaim(event.target.value);
+    props.searchBtnClick(event);
+  };
+ 
   return (
     <div>
         <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Claim Strength</InputLabel>
         <Select
         native
-        value={searchColumn}
-        onChange={handleChange}
+        value={claimStrengthColumn}
+        onChange={handleClaimStrengthChange}
         label="Claim Strength"
         inputProps={{
-            searchColumn: 'claim_strength',
+            searchcolumn: 'claim_strength',
             id: 'outlined-age-native-simple',
         }}
         >
@@ -42,16 +48,16 @@ function SearchFunctions(props) {
             <option value={'mixed'}>Mixed</option>
         </Select>
         </FormControl>
-
+ 
         <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel htmlFor="outlined-age-native-simple">Claim</InputLabel>
         <Select
         native
-        value={searchColumn}
-        onChange={handleChange}
+        value={claimColumn}
+        onChange={handleClaimChange}
         label="Claim"
         inputProps={{
-            searchColumn: 'claim',
+            searchcolumn: 'claim',
             id: 'outlined-age-native-simple',
         }}
         >
@@ -64,5 +70,5 @@ function SearchFunctions(props) {
     </div>
   );
 }
-
+ 
 export default SearchFunctions;

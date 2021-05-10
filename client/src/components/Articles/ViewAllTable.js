@@ -12,22 +12,26 @@ class ViewAllTable extends Component {
     super(props);
     this.state = {
       articles: [],
-      //search: ""
+      software_dev_practice: "",
+      claim: "",
+      claim_strength: ""
     };
   }
   
-  searchBtnClick = (ev) => {
-    let url = {};
-    if(ev.target.value !== '')
-    {
-      url = 'http://localhost:8080/api/repo/'+ev.target.getAttribute("searchColumn")+"/"+ev.target.value;
-    } else
-    {
-      url = 'http://localhost:8080/api/repo';
-    }
+  postQuery = () => {
+    const url = 'http://localhost:8080/api/repo';
+    
+    let query = {};
+
+    query.method = "query";
+    query.software_dev_practice = this.state.software_dev_practice;
+    query.claim = this.state.claim;
+    query.claim_strength = this.state.claim_strength;
+
+    console.log(query);
 
     axios
-    .get(url)
+    .post(url, query)
     .then(res => {
 
       if(res.data.success === 1)
@@ -43,6 +47,13 @@ class ViewAllTable extends Component {
         articles: []
       })
     })
+  }
+
+  searchBtnClick = (ev) => {
+    console.log(ev.target.getAttribute("searchcolumn"));
+    console.log(ev.target.value);
+
+    this.setState({[ev.target.getAttribute("searchcolumn")] : ev.target.value}, this.postQuery);
   }
 
   componentDidMount() {
