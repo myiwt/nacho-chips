@@ -8,7 +8,18 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
+      minWidth: 120
+    },
+    button: {
+      textTransform: "none",
+      margin: theme.spacing(1),
       minWidth: 120,
+      color: "#EDAFB8",
+      borderColor: "#EDAFB8",
+      height: "56px",
+      width: "120px",
+      font: "inherit",
+      fontWeight: "400"
     }
 }));
 
@@ -98,11 +109,9 @@ function SearchFunctions(props) {
             <option value={'mixed'}>Mixed</option>
         </Select>
         </FormControl>
-        <Button 
+        <Button className={classes.button}
         variant="outlined" 
-        size='large' 
-        color='secondary' 
-        disableElevation 
+        disableElevation
         onClick={handleReset}>
           Reset
         </Button>
