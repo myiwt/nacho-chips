@@ -169,3 +169,9 @@ option {
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: #ffffff !important;
 }
+
+.MuiButton-outlined,
+.MuiButton-outlinedSecondary {
+  color: #EDAFB8 !important;
+  border-color: #EDAFB8 !important;
+}

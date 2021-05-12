@@ -56,6 +56,14 @@ class ViewAllTable extends Component {
     this.setState({[ev.target.getAttribute("searchcolumn")] : ev.target.value}, this.postQuery);
   }
 
+  resetBtnClick = () => {
+    this.setState({
+      software_dev_practice: "",
+      claim: "",
+      claim_strength: "" 
+    }, this.postQuery);
+  }
+
   componentDidMount() {
     
     axios
@@ -85,7 +93,9 @@ class ViewAllTable extends Component {
       <div className="ViewAll">
         <Navigation links={navLinks}/>
         <div className="wrapper">
-          <SearchFunctions searchBtnClick={this.searchBtnClick} />
+          <SearchFunctions 
+            searchBtnClick={this.searchBtnClick}
+            resetBtnClick={this.resetBtnClick} />
           <DataTable articles={articles} />
         </div>
         <Footer />

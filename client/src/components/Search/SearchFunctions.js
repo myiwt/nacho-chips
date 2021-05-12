@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -31,6 +32,13 @@ function SearchFunctions(props) {
     setPractice(event.target.value);
     props.searchBtnClick(event);
   };
+
+  const handleReset = (event) => {
+    setClaim('');
+    setClaimStrength('');
+    setPractice('');
+    props.resetBtnClick(event);
+  }
 
   return (
     <div>
@@ -90,6 +98,14 @@ function SearchFunctions(props) {
             <option value={'mixed'}>Mixed</option>
         </Select>
         </FormControl>
+        <Button 
+        variant="outlined" 
+        size='large' 
+        color='secondary' 
+        disableElevation 
+        onClick={handleReset}>
+          Reset
+        </Button>
     </div>
   );
 }
