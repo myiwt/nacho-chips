@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "#EDAFB8",
       height: "56px",
       width: "120px",
-      font: "inherit",
-      fontWeight: "400"
+      fontSize: 16
     }
 }));
 
