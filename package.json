@@ -25,6 +25,7 @@
   "homepage": "https://github.com/myiwt/nacho-chips#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "citation-js": "^0.5.1",
     "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
