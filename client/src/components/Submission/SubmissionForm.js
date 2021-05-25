@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { TextField, FormControl, Select, InputLabel } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+
+const submissionFormats = [
+    {
+      value: 0,
+      label: 'DOI Resolution',
+    },
+    {
+      value: 1,
+      label: 'BibTeX',
+    },
+    {
+      value: 2,
+      label: 'Form',
+    }
+  ];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,13 +25,235 @@ const useStyles = makeStyles((theme) => ({
       width: '25ch',
     },
   },
+  submitBtn: {
+      border: 'solid 1px #ffffff',
+      color: '#ffffff',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  }
 }));
 
-export default function SubmissionForm(props) {
+const Cite = require('citation-js');
+
+async function parseDOI(doi, callback){
+
+    const options = {
+        type: 'string',
+        style: 'bibtex'
+    };
+
+    try {
+        const example = await Cite.async(doi,options);
+        return example;
+    }
+    catch (error)
+    {
+        return null;
+    }
+}
+
+function getAuthors(json)
+{
+    let authors = "";
+
+    for (var i = 0; i < json.length; ++i)
+    {
+        let author = json[i].given + " " + json.[i].family + " ";
+        authors += author;
+    }
+
+    return authors;
+}
+
+const buildFromDOI = (result) => {
+    const evidence = {};
+
+    evidence.title = result[0].title;
+    evidence.author = getAuthors(result[0].author);
+    evidence.year = result[0].issued['date-parts'][0][0];
+    evidence.journal = result[0]['container-title'];
+    evidence.volume = result[0].volume;
+    evidence.url = result[0].URL;
+    evidence.doi = result[0].DOI;
+
+    return evidence;
+};
+
+const runDOICheck = (ev) => {
+    //console.log(ev.target.value);
+    parseDOI(ev.target.value)
+        .catch(() =>{
+            console.log('Error getting details from the repository!')
+        })
+        .then(result => {
+            if(result != null && result.get().length > 0)
+            {
+                console.log(buildFromDOI(result.get()));
+            }
+    });
+};
+
+export default function SubmissionForm(props) {  
+
+    const uploadInputRef = useRef(null);
+
     const classes = useStyles();
+
+    const doiForm = () => {
+        return(
+            <div>
+                <TextField id="doi" label="DOI" variant="outlined" onChange={runDOICheck} />
+            </div>
+        );
+    };
+
+    const [formatColumn, setFormat ] = React.useState('');
+    const [formState, setFormState] = React.useState(doiForm);
+
+    const submitTextForm = () => {
+        const evidence = {};
+    
+        evidence.title = document.getElementById('title').value;
+        evidence.author = document.getElementById('authors').value;
+        evidence.year = document.getElementById('year').value;
+        evidence.journal = document.getElementById('journal').value;
+        evidence.volume = document.getElementById('volume').value;
+        evidence.url = document.getElementById('url').value;
+        evidence.doi = document.getElementById('doi').value;
+        evidence.software_dev_practice = document.getElementById('practice').value;
+        evidence.claim = document.getElementById('claim').value;
+        evidence.claim_strength = document.getElementById('claim_strength').value;
+    
+        //console.log(evidence);
+        props.handler(evidence);
+    };  
+
+    const bibTexForm = () => {
+        return(
+            <div>
+                <input
+                ref={uploadInputRef}
+                type="file"
+                accept="*"
+                style={{ display: "none" }}
+                onChange={handleUpload}
+                />
+                <Button
+                onClick={() => uploadInputRef.current && uploadInputRef.current.click()}
+                variant="contained"
+                >
+                Upload
+                </Button>
+            </div>
+        );
+    };
+
+    const handleFormatChange = (event) => {
+        setFormat(event.target.value);
+
+        if(event.target.value == 0)
+        {
+            setFormState(doiForm);
+        }
+        if(event.target.value == 1)
+        {
+            setFormState(bibTexForm);
+        }
+        if(event.target.value == 2)
+        {
+            setFormState(textForm);
+        }
+    };  
+
+    const handleUpload = (event) => {
+        //props.uploadhandler(event);
+        var reader = new FileReader();
+        reader.onload = function(){
+            console.log(Cite.parseBibTeX(reader.result.substring(0, 200)));
+        };
+        reader.readAsText(event.target.files[0]);
+    };
+
+    const textForm = () => {
+        return(
+            <div>
+                <TextField id="title" label="Title" variant="outlined" />
+                <TextField id="authors" label="Author(s)" variant="outlined" />
+                <TextField id="year" label="Year" type="number" variant="outlined" />
+                <TextField id="journal" label="Journal" variant="outlined" />
+                <TextField id="volume" label="Volume" variant="outlined" />
+                <TextField id="url" label="URL" variant="outlined" />
+                <TextField id="doi" label="DOI" variant="outlined" />
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel htmlFor="outlined-age-native-simple">Practice</InputLabel>
+                    <Select native id="practice" label="Practice" inputProps={{
+                        searchcolumn: 'software_dev_practice',
+                        id: 'practice',
+                    }}
+                    >
+                        <option aria-label="None" value="" />
+                        <option value={'TDD'}>TDD</option>
+                        <option value={'BDD'}>BDD</option>
+                        <option value={'ATDD'}>ATDD</option>
+                    </Select>
+                </FormControl>
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel htmlFor="outlined-age-native-simple">Claim</InputLabel>
+                    <Select native label="Claim" inputProps={{
+                        searchcolumn: 'claim',
+                        id: 'claim',
+                    }}
+                    >
+                        <option aria-label="None" value="" />
+                        <option value={'productQuality'}>Improves product quality</option>
+                        <option value={'codeQuality'}>Improves code quality</option>
+                        <option value={'teamConfidence'}>Improves team confidence</option>
+                    </Select>
+                </FormControl>
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel htmlFor="outlined-age-native-simple">Claim Strength</InputLabel>
+                    <Select native id="claim_strength" label="Claim Strength" inputProps={{
+                        searchcolumn: 'claim_strength',
+                        id: 'claim_strength',
+                    }}
+                    >
+                        <option aria-label="None" value="" />
+                        <option value={'stronglyAgainst'}>Strongly Against</option>
+                        <option value={'mostlyAgainst'}>Mostly Against</option>
+                        <option value={'stronglyAgree'}>Strongly Agree</option>
+                        <option value={'mostlyAgree'}>Mostly Agree</option>
+                        <option value={'mixed'}>Mixed</option>
+                    </Select>
+                </FormControl>
+                <Button className={classes.submitBtn} onClick={submitTextForm} variant="outlined">
+                    Submit
+                </Button>
+            </div>
+        );
+    };
+
     return (
         <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+            <TextField
+            id="outlined-select-currency-native"
+            select
+            label="Submission Format"
+            value={formatColumn}
+            onChange={handleFormatChange}
+            SelectProps={{
+                native: true,
+            }}
+            variant="outlined"
+            >
+            {submissionFormats.map((option) => (
+                <option key={option.value} value={option.value}>
+                {option.label}
+                </option>
+            ))}
+            </TextField>
+            {formState}
         </form>
     );
 };

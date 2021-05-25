@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 
 import '../../App.css';
 //import DOIAPI from './DOIAPI';
@@ -15,10 +15,38 @@ class SubmissionView extends Component {
     };
   }
 
-  submissionHandler = (props) => {
-    console.log(props);
+  postQuery = (query) => {
+    const url = 'http://localhost:8080/api/repo/create';
+
+    console.log(query);
+
+    axios
+    .post(url, query)
+    .then(res => {
+
+      if(res.data.success === 1)
+      {
+        console.log("added");
+      }
+    })
+    .catch(err =>{
+      console.log('Error getting details from the repository!');
+    })
+  }
+
+  submissionHandler = (ev) => {
+    //console.log(ev);
+    this.postQuery(ev);
   };
-  
+
+  uploadHandler = (ev) => {
+    var reader = new FileReader();
+    reader.onload = function(){
+      console.log(reader.result.substring(0, 200));
+    };
+    reader.readAsText(ev.target.files[0]);
+  };
+
   componentDidMount() {
     
     
@@ -33,7 +61,7 @@ class SubmissionView extends Component {
       <div className="ViewAll">
         <Navigation links={navLinks}/>
         <div className="wrapper">
-          <SubmissionForm handler={this.submissionHandler} />
+          <SubmissionForm handler={this.submissionHandler} uploadhandler={this.uploadHandler}/>
         </div>
         <Footer />
       </div>
