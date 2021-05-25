@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, FormControl, Select, InputLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Cite = require('citation-js');
+require('@citation-js/plugin-bibtex')
 
 async function parseDOI(doi, callback){
 
@@ -153,15 +154,15 @@ export default function SubmissionForm(props) {
     const handleFormatChange = (event) => {
         setFormat(event.target.value);
 
-        if(event.target.value == 0)
+        if(event.target.value === '0')
         {
             setFormState(doiForm);
         }
-        if(event.target.value == 1)
+        if(event.target.value === '1')
         {
             setFormState(bibTexForm);
         }
-        if(event.target.value == 2)
+        if(event.target.value === '2')
         {
             setFormState(textForm);
         }
@@ -171,7 +172,11 @@ export default function SubmissionForm(props) {
         //props.uploadhandler(event);
         var reader = new FileReader();
         reader.onload = function(){
-            console.log(Cite.parseBibTeX(reader.result.substring(0, 200)));
+            const result = new Cite(reader.result);
+            if(result != null && result.get().length > 0)
+            {
+                console.log(buildFromDOI(result.get()));
+            }
         };
         reader.readAsText(event.target.files[0]);
     };
