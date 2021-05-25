@@ -61,7 +61,7 @@ function getAuthors(json)
 
     for (var i = 0; i < json.length; ++i)
     {
-        let author = json[i].given + " " + json.[i].family + " ";
+        let author = json[i].given + " " + json[i].family + " ";
         authors += author;
     }
 
