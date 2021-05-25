@@ -76,7 +76,7 @@ const buildFromDOI = (result) => {
     evidence.year = result[0].issued['date-parts'][0][0];
     evidence.journal = result[0]['container-title'];
     evidence.volume = result[0].volume;
-    evidence.url = result[0].URL;
+    evidence.url = decodeURIComponent(result[0].URL).replace(/[^a-zA-Z0-9-_/:.-]/g, '');
     evidence.doi = result[0].DOI;
 
     return evidence;
@@ -169,6 +169,12 @@ export default function SubmissionForm(props) {
     };  
 
     const handleUpload = (event) => {
+        var fileName = event.target.files[0].name.toLowerCase();
+        var re = /(\.txt|\.bib)$/i;
+        if (!re.exec(fileName)) {
+            alert("File extension not supported!");
+            return;
+        }
         //props.uploadhandler(event);
         var reader = new FileReader();
         reader.onload = function(){
@@ -179,6 +185,7 @@ export default function SubmissionForm(props) {
             }
         };
         reader.readAsText(event.target.files[0]);
+        event.target.value = null;
     };
 
     const textForm = () => {
