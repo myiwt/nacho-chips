@@ -34,7 +34,7 @@ connectDB();
 if (process.env.NODE_ENV === 'production') {
   // serve front-end client from build folder
   app.use(express.static(__dirname+'/../client/build'));
-  app.get('/*', (req, res) =>{
+  app.get('./', (req, res) =>{
     res.sendFile(__dirname+'/../client/build/index.html')
   });
   
