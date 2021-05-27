@@ -40,6 +40,9 @@ router.post('/', (req, res) => {
                 query.software_dev_practice = { $regex: body.software_dev_practice, $options: 'i'};
             }
             
+            // making sure only approved articles are retrieved
+            query.status = { $regex: "approved", $options: 'i'};
+
             // TODO: yearStart & yearEnd
 
             console.log(query);
@@ -56,6 +59,89 @@ router.post('/', (req, res) => {
             })
             .catch(err => res.status(404).json({ success: 0, msg: err.message }));
         }
+
+        if (body.method == "checkSubmission") 
+        {
+            const query = {}; 
+            if(body.id != null)
+            {
+                query._id = { $eq: body.id};
+                query.status = { $regex: "pending", $options: 'i'};                
+            }
+
+            console.log(query);
+
+            Evidence.findOne(query)
+            //Evidence.find(query)
+            .then(function(article){ 
+                //console.log(article)
+                if(article == null || article.length == 0)
+                {
+                    throw new Error("Article does not exist");
+                }
+                const result = { success: 1 , result: article };
+                res.json(result)
+            })
+            .catch(err => res.status(404).json({ success: 0, msg: err.message }));
+        }
+
+        if (body.method == "approveSubmission") {
+            const query = {};
+            const status_update = { status: "approved" };
+
+            if(body.id != null)
+            {
+                query._id = { $eq: body.id};
+                query.status = { $regex: "pending", $options: 'i'};                
+            }
+
+            console.log(query);
+
+            Evidence.findOneAndUpdate(query, status_update, {
+                new: true,
+                useFindAndModify: false,
+            })
+            //Evidence.find(query)
+            .then(function(article){ 
+                console.log(article)
+                if(article == null || article.length == 0)
+                {
+                    throw new Error("Article does not exist");
+                }
+                const result = { success: 1 , result: article };
+                res.json(result)
+            })
+            .catch(err => res.status(404).json({ success: 0, msg: err.message }));
+        }
+
+        if (body.method == "declineSubmission") {
+            const query = {};
+            const status_update = { status: "declined" };
+
+            if(body.id != null)
+            {
+                query._id = { $eq: body.id};
+                query.status = { $regex: "pending", $options: 'i'};                
+            }
+
+            console.log(query);
+
+            Evidence.findOneAndUpdate(query, status_update, {
+                new: true,
+                useFindAndModify: false,
+            })
+            //Evidence.find(query)
+            .then(function(article){ 
+                console.log(article)
+                if(article == null || article.length == 0)
+                {
+                    throw new Error("Article does not exist");
+                }
+                const result = { success: 1 , result: article };
+                res.json(result)
+            })
+            .catch(err => res.status(404).json({ success: 0, msg: err.message }));
+        }
     } else {
         res.status(404).json({success: 0, msg: "no method set"});
     }
@@ -67,12 +153,11 @@ router.post('/', (req, res) => {
 // @route GET api/repo
 // @description get all articles
 router.get('/', (req, res) => {
-    Evidence.find()
+    Evidence.find({status: { $regex: "approved", $options: 'i'}})
         .then(function(articles){ 
             if(articles == null)
             {
                 throw new Error("No Articles found");
-                
             }
             const result = { success: 1 , result: articles };
             res.json(result)

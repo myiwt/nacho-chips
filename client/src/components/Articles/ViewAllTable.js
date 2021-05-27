@@ -19,7 +19,7 @@ class ViewAllTable extends Component {
   }
   
   postQuery = () => {
-    const url = 'http://localhost:8080/api/repo';
+    const url = 'http://cise-seeds.herokuapp.com/api/repo';
     
     let query = {};
 
@@ -59,7 +59,7 @@ class ViewAllTable extends Component {
   componentDidMount() {
     
     axios
-    .get('http://localhost:8080/api/repo')
+    .get('http://cise-seeds.herokuapp.com/api/repo')
     .then(res => {
 
       if(res.data.success === 1)
@@ -77,10 +77,10 @@ class ViewAllTable extends Component {
   render() {
     const articles = this.state.articles;
     //const search = this.state.search;
-    const navLinks = {
+    const navLinks = [{
       title: "Home",
       href: "/"
-    };
+    }];
     return (
       <div className="ViewAll">
         <Navigation links={navLinks}/>

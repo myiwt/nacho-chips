@@ -6,9 +6,11 @@ const Navigation = (props) => {
     return (
         <div className = "navigation">
             <ul className="right-nav">
-                <Link to = {props.links.href} className="nav-btn">
-                    {props.links.title}
+            {props.links.map((link, i) => (
+                <Link to = {link.href} className="nav-btn" key={i}>
+                    {link.title}
                 </Link>
+            ))}
             </ul>
         </div>
     )

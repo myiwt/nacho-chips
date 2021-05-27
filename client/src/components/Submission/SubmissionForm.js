@@ -61,7 +61,10 @@ function getAuthors(json)
 
     for (var i = 0; i < json.length; ++i)
     {
-        let author = json[i].given + " " + json[i].family + " ";
+        let author = json[i].given + " " + json[i].family;
+        if((json.length - 1) !== i){
+            author += " ";
+        }
         authors += author;
     }
 
@@ -82,25 +85,25 @@ const buildFromDOI = (result) => {
     return evidence;
 };
 
-const runDOICheck = (ev) => {
-    //console.log(ev.target.value);
-    parseDOI(ev.target.value)
-        .catch(() =>{
-            console.log('Error getting details from the repository!')
-        })
-        .then(result => {
-            if(result != null && result.get().length > 0)
-            {
-                console.log(buildFromDOI(result.get()));
-            }
-    });
-};
-
 export default function SubmissionForm(props) {  
 
     const uploadInputRef = useRef(null);
 
     const classes = useStyles();
+
+    const runDOICheck = (ev) => {
+        parseDOI(ev.target.value)
+            .catch(() =>{
+                console.log('Error getting details from the repository!')
+            })
+            .then(result => {
+                if(result != null && result.get().length > 0)
+                {
+                    console.log(buildFromDOI(result.get()));
+                    props.handler(buildFromDOI(result.get()));
+                }
+        });
+    };
 
     const doiForm = () => {
         return(
@@ -126,8 +129,7 @@ export default function SubmissionForm(props) {
         evidence.software_dev_practice = document.getElementById('practice').value;
         evidence.claim = document.getElementById('claim').value;
         evidence.claim_strength = document.getElementById('claim_strength').value;
-    
-        //console.log(evidence);
+
         props.handler(evidence);
     };  
 
@@ -182,6 +184,7 @@ export default function SubmissionForm(props) {
             if(result != null && result.get().length > 0)
             {
                 console.log(buildFromDOI(result.get()));
+                props.handler(buildFromDOI(result.get()));
             }
         };
         reader.readAsText(event.target.files[0]);

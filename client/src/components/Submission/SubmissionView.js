@@ -16,7 +16,7 @@ class SubmissionView extends Component {
   }
 
   postQuery = (query) => {
-    const url = 'http://localhost:8080/api/repo/create';
+    const url = 'http://cise-seeds.herokuapp.com/api/repo/create';
 
     console.log(query);
 
@@ -53,10 +53,14 @@ class SubmissionView extends Component {
   };
 
   render() {
-    const navLinks = {
+    const navLinks = [{
       title: "Home",
       href: "/"
-    };
+    },
+    {
+      title: "Index",
+      href: "/index"
+    }];
     return (
       <div className="ViewAll">
         <Navigation links={navLinks}/>
