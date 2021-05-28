@@ -35,20 +35,20 @@ const EvidenceSchema = new mongoose.Schema({
   software_dev_practice: {
     type: String,
     enum: [softwareDevPractices],
-    required: true,
+    required: false,
   },
   claim: {
     type: String,
     /* enum: [claimTypes.CODEQUALITY, claimTypes.PRODUCTQUALITY, claimTypes.TEAMCONFIDENCE], */
     enum: [claimTypes],
-    required: true,
+    required: false,
   },
   claim_strength: {
     type: String,
     /* enum: [claimStrength.STRONGLYAGAINST, claimStrength.MOSTLYAGAINST, claimStrength.MIXED,
       claimStrength.MOSTLYAGAINST, claimStrength.STRONGLYAGREE], */
     enum: [claimStrength],
-    required: true,
+    required: false,
   },
   updated_date: {
     type: Date,
