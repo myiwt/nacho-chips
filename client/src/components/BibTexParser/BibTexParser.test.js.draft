@@ -1,0 +1,30 @@
+import { parseBibTex } from './BibTexParser';
+
+it('Test BibTeX Parser', async () => {
+  let test_title = 'An Efficient User Verification System Using Angle-Based Mouse Movement Biometrics';
+
+  let test_bibtex = `@article{10.1145/2893185,
+    author = {Zheng, Nan and Paloski, Aaron and Wang, Haining},
+    title = {An Efficient User Verification System Using Angle-Based Mouse Movement Biometrics},
+    year = {2016},
+    issue_date = {April 2016},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {18},
+    number = {3},
+    issn = {1094-9224},
+    url = {https://doi.org/10.1145/2893185},
+    doi = {10.1145/2893185},
+    abstract = {Biometric authentication verifies a user based on its inherent, unique characteristics—who you are. In addition to physiological biometrics, behavioral biometrics has proven very useful in authenticating a user. Mouse dynamics, with their unique patterns of mouse movements, is one such behavioral biometric. In this article, we present a user verification system using mouse dynamics, which is transparent to users and can be naturally applied for continuous reauthentication. The key feature of our system lies in using much more fine-grained (point-by-point) angle-based metrics of mouse movements for user verification. These new metrics are relatively unique from person to person and independent of a computing platform. Moreover, we utilize support vector machines (SVMs) for quick and accurate classification. Our technique is robust across different operating platforms, and no specialized hardware is required. The efficacy of our approach is validated through a series of experiments, which are based on three sets of user mouse movement data collected in controllable environments and in the field. Our experimental results show that the proposed system can verify a user in an accurate and timely manner, with minor induced system overhead.},
+    journal = {ACM Trans. Inf. Syst. Secur.},
+    month = apr,
+    articleno = {11},
+    numpages = {27},
+    keywords = {angle-based metrics, mouse dynamics, User verification}
+    }`;
+
+  const result = await parseBibTex(new Blob([test_bibtex]));
+  const parsed = result.get();
+
+  expect(parsed[0].title).toBe(test_title);
+});
