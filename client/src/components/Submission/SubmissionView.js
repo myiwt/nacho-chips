@@ -15,7 +15,7 @@ class SubmissionView extends Component {
   }
 
   postQuery = (query) => {
-    const url = 'http://localhost:8080/api/repo/create';
+    const url = 'https://cise-seeds.herokuapp.com/api/repo/create';
 
     console.log(query);
 

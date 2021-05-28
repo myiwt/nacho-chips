@@ -19,7 +19,7 @@ class ViewAllTable extends Component {
   }
   
   postQuery = () => {
-    const url = 'http://localhost:8080/api/repo';
+    const url = 'https://cise-seeds.herokuapp.com/api/repo';
     
     let query = {};
 
@@ -59,7 +59,7 @@ class ViewAllTable extends Component {
   componentDidMount() {
     
     axios
-    .get('http://localhost:8080/api/repo')
+    .get('https://cise-seeds.herokuapp.com/api/repo')
     .then(res => {
 
       if(res.data.success === 1)

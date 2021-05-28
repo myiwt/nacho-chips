@@ -20,7 +20,7 @@ class PendingSubmissionView extends Component {
     query.id = this.props.match.params.id;
 
     axios
-    .post('http://localhost:8080/api/repo', query)
+    .post('https://cise-seeds.herokuapp.com/api/repo', query)
     .then(res => {
         if(res.data.success === 1)
         {
@@ -40,7 +40,7 @@ class PendingSubmissionView extends Component {
     query.id = this.props.match.params.id;
 
     axios
-    .post('http://localhost:8080/api/repo', query)
+    .post('https://cise-seeds.herokuapp.com/api/repo', query)
     .then(res => {
         if(res.data.success === 1)
         {
@@ -61,7 +61,7 @@ class PendingSubmissionView extends Component {
     query.id = this.props.match.params.id;
 
     axios
-    .post('http://localhost:8080/api/repo', query)
+    .post('https://cise-seeds.herokuapp.com/api/repo', query)
     .then(res => {
         if(res.data.success === 1)
         {
