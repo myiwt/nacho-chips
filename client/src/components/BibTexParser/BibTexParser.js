@@ -1,7 +1,7 @@
 const Cite = require('citation-js');
 require('@citation-js/plugin-bibtex')
 
-async function parseBibTex(bibtex, callback){
+export async function parseBibTex(bibtex, callback){
 
     var reader = new FileReader();    
 
@@ -22,7 +22,3 @@ async function parseBibTex(bibtex, callback){
         return null;
     }
 }
-
-module.exports = parseBibTex;
-
-export default module;

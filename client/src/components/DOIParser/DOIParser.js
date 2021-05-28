@@ -1,22 +1,7 @@
 const Cite = require('citation-js');
 require('@citation-js/plugin-bibtex')
 
-async function parseDOI(doi, callback){
 
-    const options = {
-        type: 'string',
-        style: 'bibtex'
-    };
-
-    try {
-        const example = await Cite.async(doi,options);
-        return example;
-    }
-    catch (error)
-    {
-        return null;
-    }
-}
 
 function getAuthors(json)
 {
@@ -34,7 +19,24 @@ function getAuthors(json)
     return authors;
 }
 
-const buildEvidenceFromDOI = (result) => {
+export async function parseDOI(doi, callback){
+
+    const options = {
+        type: 'string',
+        style: 'bibtex'
+    };
+
+    try {
+        const example = await Cite.async(doi,options);
+        return example;
+    }
+    catch (error)
+    {
+        return null;
+    }
+}
+
+export const buildEvidenceFromDOI = (result) => {
     const evidence = {};
 
     evidence.title = result[0].title;
@@ -47,10 +49,3 @@ const buildEvidenceFromDOI = (result) => {
 
     return evidence;
 };
-
-module.exports = {
-  parseDOI,
-  buildEvidenceFromDOI
-};
-
-export default module;

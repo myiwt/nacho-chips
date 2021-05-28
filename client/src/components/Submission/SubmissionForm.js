@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextField, FormControl, Select, InputLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import DOI from '../DOIParser/DOIParser';
-import parseBibTex from '../BibTexParser/BibTexParser';
+import { parseDOI, buildEvidenceFromDOI } from '../DOIParser/DOIParser';
+import { parseBibTex } from '../BibTexParser/BibTexParser';
 
 const submissionFormats = [
     {
@@ -45,14 +45,14 @@ export default function SubmissionForm(props) {
     const classes = useStyles();
 
     const runDOICheck = (ev) => {
-        DOI.parseDOI(ev.target.value)
+        parseDOI(ev.target.value)
             .catch(() =>{
                 console.log('Error getting details from the repository!')
             })
             .then(result => {
                 if(result != null && result.get().length > 0)
                 {
-                    props.handler(DOI.buildEvidenceFromDOI(result.get()));
+                    props.handler(buildEvidenceFromDOI(result.get()));
                 }
         });
     };
@@ -133,7 +133,7 @@ export default function SubmissionForm(props) {
         const parsedBibTeX = parseBibTex(event.target.files[0]);
         if(parsedBibTeX != null)
         {
-            props.handler(DOI.buildEvidenceFromDOI(parsedBibTeX.get()));
+            props.handler(buildEvidenceFromDOI(parsedBibTeX.get()));
         }
 
         event.target.value = null;
