@@ -23,6 +23,6 @@ async function parseBibTex(bibtex, callback){
     }
 }
 
-module.exports = {
-  parseBibTex
-};
+module.exports = parseBibTex;
+
+export default module;

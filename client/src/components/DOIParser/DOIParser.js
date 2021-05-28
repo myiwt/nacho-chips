@@ -52,3 +52,5 @@ module.exports = {
   parseDOI,
   buildEvidenceFromDOI
 };
+
+export default module;
