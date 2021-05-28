@@ -77,10 +77,10 @@ class ViewAllTable extends Component {
   render() {
     const articles = this.state.articles;
     //const search = this.state.search;
-    const navLinks = {
+    const navLinks = [{
       title: "Home",
       href: "/"
-    };
+    }];
     return (
       <div className="ViewAll">
         <Navigation links={navLinks}/>

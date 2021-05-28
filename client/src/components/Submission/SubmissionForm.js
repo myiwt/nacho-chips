@@ -4,7 +4,7 @@ import { TextField, FormControl, Select, InputLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
 import { parseDOI, buildEvidenceFromDOI } from '../DOIParser/DOIParser';
-import { parseBibTex } from '../BibTexParser/BibTeXParser';
+import { parseBibTex } from '../BibTexParser/BibTexParser';
 
 const submissionFormats = [
     {

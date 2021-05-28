@@ -11,10 +11,14 @@ class Home extends Component {
   }
 
   render() {
-    const navLinks = {
+    const navLinks = [{
+      title: "Submit",
+      href: "/submit"
+    },
+    {
       title: "Index",
       href: "/index"
-    }
+    }]
     return (
       <div className="Home">
         < Navigation links={navLinks}/>
