@@ -18,7 +18,7 @@ const EvidenceSchema = new mongoose.Schema({
   },
   year: {
     type: Number,
-    required: false,
+    required: true,
   },
   volume: {
     type: Number,
@@ -55,6 +55,15 @@ const EvidenceSchema = new mongoose.Schema({
     default: Date.now,
     required: true,
   },
+  status: {
+    type: String,
+    default: "pending",
+    required: true,
+  },
+  comments: {
+    type: String,
+    required: false,
+  }
 });
 
 const Token = mongoose.model('evidence', EvidenceSchema);
