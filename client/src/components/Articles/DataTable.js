@@ -60,6 +60,7 @@ const columns = [
   { field: 'id', headerName: 'ID', hide: true },
   { field: 'title', headerName: 'Title', width: 700, headerClassName: 'table-header-seeds', headerAlign: 'center', cellClassName: 'table-cell-seeds', align: 'left' }, //flex 0.5
   { field: 'author', headerName: 'Author', width: 300, headerClassName: 'table-header-seeds', headerAlign: 'center', cellClassName: 'table-cell-seeds', align: 'left' }, //flex 0.1
+  { field: 'year', headerName: 'Year', width: 100, headerClassName: 'table-header-seeds', headerAlign: 'center', cellClassName: 'table-cell-seeds', align: 'left' }, //flex 0.1
   { field: 'software_dev_practice', headerName: 'Practice', width: 110, headerClassName: 'table-header-seeds', headerAlign: 'center', cellClassName: 'table-cell-seeds', align: 'left' }, //flex 0.075
   { field: 'claim', headerName: 'Claim', width: 150, headerClassName: 'table-header-seeds', headerAlign: 'center', cellClassName: 'table-cell-seeds', align: 'left' }, //flex 0.1
   { field: 'claim_strength', headerName: 'Claim Strength', width: 150, headerClassName: 'table-header-seeds', headerAlign: 'center', cellClassName: 'table-cell-seeds', align: 'left' }, //flex 0.1
@@ -95,6 +96,7 @@ export default function DataTable(props) {
             id: item._id, 
             title: item.title, 
             author: item.author,
+            year: item.year,
             software_dev_practice: item.software_dev_practice, 
             claim: translateClaim(item.claim),
             claim_strength: translateClaimStrength(item.claim_strength),
