@@ -3,7 +3,9 @@
 [![Node CI](https://github.com/myiwt/nacho-chips/actions/workflows/integrate.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/integrate.yml)
 [![Heroku CD](https://github.com/myiwt/nacho-chips/actions/workflows/deploy.yml/badge.svg)](https://github.com/myiwt/nacho-chips/actions/workflows/deploy.yml)
 
-This web application is a resource for Test-Driven-Development information.
+This is a repository for uploading and searching knowledge resources relating to Test Driven Development. It is a web application built using the MERN stack.
+
+![Demo](https://github.com/myiwt/nacho-chips/blob/develop/SEEDS%20demo.gif)
 
 ## Available Scripts
 
